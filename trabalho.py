@@ -87,7 +87,7 @@ def gen_array(n, k):
 def test_sorting():
     n = int(input("Insira o número de elementos dos arrays: "))
     k = int(input("Insira o valor máximo dos elementos dos arrays: "))
-    num_arrays = 10000
+    num_arrays = int(input("Insira o número de arrays a serem gerados: "))
     total_time_bubble = 0
     total_time_selection = 0
     total_time_insertion = 0
