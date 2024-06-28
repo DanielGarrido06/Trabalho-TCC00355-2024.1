@@ -31,3 +31,13 @@ Gera um array de um tamanho especificado (n) com inteiros aleatórios variando d
 
 # Avaliação de Desempenho
 A função test_sorting solicita ao usuário que defina os parâmetros do teste (número de elementos, valor máximo dos elementos e número de arrays). Em seguida, gera arrays aleatórios e avalia o desempenho de cada algoritmo de ordenação medindo o tempo necessário para ordenar cada array. O tempo total gasto por cada algoritmo é convertido para microssegundos e impresso de forma formatada para comparação.
+
+# Exemplos de saídas
+Tempo total de execução de cada algoritmo de ordenação para a mesma bateria de 10000 arrays de 100 elementos aleatórios, variando de 0 a 1000 :
+As unidades de tempo são microsegundos (μs), sempre inteiros, com separação de milhares por vírgulas (,).
+Tempo total Bubble sort: 2,687,500 μs
+Tempo total Selection sort: 1,203,125 μs
+Tempo total Insertion sort: 984,375 μs
+Tempo total Counting sort: 906,250 μs
+Tempo total Merge sort: 765,625 μs
+
