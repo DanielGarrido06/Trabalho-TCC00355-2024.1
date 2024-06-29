@@ -82,15 +82,15 @@ def nano_para_micro(num):
     return(result)
 
 def gen_arrays(n, k, num_arrays):
-    Arr = []
+    array_geral = []
     for _ in range(num_arrays):
         arr = [random.randint(0, k) for _ in range(n)]
-        Arr.append(arr)
-    return Arr
+        array_geral.append(arr)
+    return array_geral
 
-def run_benchmark(Arr, sort_func, total_times, sort_func_name):
+def run_benchmark(array_geral, sort_func, total_times, sort_func_name):
     start = time.process_time_ns()
-    for arr in Arr:
+    for arr in array_geral:
         sort_func(arr.copy())
     end = time.process_time_ns()
     if sort_func_name not in total_times:
@@ -105,16 +105,16 @@ def test_sorting():
     threads = []
 
     # Generate the arrays
-    Arr = gen_arrays(n, k, num_arrays)
+    array_geral = gen_arrays(n, k, num_arrays)
 
     # Initialize the dictionary for total times
     total_times = {}
 
-    thread_bubble = threading.Thread(target=run_benchmark, args=(Arr.copy(), bubble_sort, total_times, "bubble_sort"))
-    thread_selection = threading.Thread(target=run_benchmark, args=(Arr.copy(), selection_sort, total_times, "selection_sort"))
-    thread_insertion = threading.Thread(target=run_benchmark, args=(Arr.copy(), insertion_sort, total_times, "insertion_sort"))
-    thread_counting = threading.Thread(target=run_benchmark, args=(Arr.copy(), counting_sort, total_times, "counting_sort"))
-    thread_merge = threading.Thread(target=run_benchmark, args=(Arr.copy(), merge_sort, total_times, "merge_sort"))
+    thread_bubble = threading.Thread(target=run_benchmark, args=(array_geral.copy(), bubble_sort, total_times, "bubble_sort"))
+    thread_selection = threading.Thread(target=run_benchmark, args=(array_geral.copy(), selection_sort, total_times, "selection_sort"))
+    thread_insertion = threading.Thread(target=run_benchmark, args=(array_geral.copy(), insertion_sort, total_times, "insertion_sort"))
+    thread_counting = threading.Thread(target=run_benchmark, args=(array_geral.copy(), counting_sort, total_times, "counting_sort"))
+    thread_merge = threading.Thread(target=run_benchmark, args=(array_geral.copy(), merge_sort, total_times, "merge_sort"))
 
     threads.append(thread_bubble)
     threads.append(thread_selection)
