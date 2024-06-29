@@ -22,7 +22,7 @@ Um algoritmo de divisão e conquista que divide o array de entrada em duas metad
 
 # Funções Utilitárias
 
-## nano_para_micro:
+## nano_para_micro
 Converte nanosegundos para microssegundos e formata o resultado para facilitar a leitura, inserindo vírgulas a cada três dígitos.
 
 ## gen_arrays

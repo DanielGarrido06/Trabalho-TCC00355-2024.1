@@ -129,13 +129,11 @@ def test_sorting():
         thread.join()
 
     print("Tempo total de execução de cada algoritmo de ordenação para a mesma bateria de",
-        num_arrays, "arrays de", n, "elementos aleatórios, variando de 0 a", k,":")
+          num_arrays, "arrays de", n, "elementos aleatórios, variando de 0 a", k, ":")
     print("As unidades de tempo são microsegundos (μs), sempre inteiros, com separação de milhares por vírgulas (,).")
-    print("Tempo total Bubble sort:", nano_para_micro(total_times["bubble_sort"]), "μs")
-    print("Tempo total Selection sort:", nano_para_micro(total_times["selection_sort"]), "μs")
-    print("Tempo total Insertion sort:", nano_para_micro(total_times["insertion_sort"]), "μs")
-    print("Tempo total Counting sort:", nano_para_micro(total_times["counting_sort"]), "μs")
-    print("Tempo total Merge sort:", nano_para_micro(total_times["merge_sort"]), "μs")
+    for sort_name in ["bubble_sort", "selection_sort", "insertion_sort", "counting_sort", "merge_sort"]:
+        print(f"Tempo total {sort_name.replace('_', ' ').capitalize()}:",
+              nano_para_micro(total_times[sort_name]), "μs")
 
 
 test_sorting()
