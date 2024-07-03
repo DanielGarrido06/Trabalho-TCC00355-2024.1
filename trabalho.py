@@ -1,5 +1,7 @@
 import random
 import time
+from multiprocessing import Pool, Manager
+from functools import partial
 
 def bubble_sort(arr):
     n = len(arr)
@@ -87,11 +89,12 @@ def gen_arrays(n, k, num_arrays):
         array_geral.append(arr)
     return array_geral
 
-def run_benchmark(array_geral, sort_func, total_times, sort_func_name):
+def run_benchmark(array_geral, sort_func, total_times):
     start = time.process_time_ns()
     for arr in array_geral:
-        sort_func(arr.copy())
+        sort_func(arr)
     end = time.process_time_ns()
+    sort_func_name = sort_func.__name__
     if sort_func_name not in total_times:
         total_times[sort_func_name] = 0
     total_times[sort_func_name] += (end - start)
@@ -101,21 +104,24 @@ def main():
     k = int(input("Insira o valor máximo dos elementos dos arrays: "))
     num_arrays = int(input("Insira o número de arrays a serem gerados: "))
 
-    total_times = {}
+    manager = Manager()
+    total_times = manager.dict()
 
     array_geral = gen_arrays(n, k, num_arrays)
 
-    for sort_func in [bubble_sort, selection_sort, insertion_sort, counting_sort, merge_sort]:
-        run_benchmark(array_geral.copy(), sort_func, total_times, sort_func.__name__)
+    if __name__ == "__main__":
+        with Pool(5) as pool:
+            pool.map(partial(run_benchmark, array_geral=array_geral.copy(), total_times=total_times),
+            [bubble_sort, selection_sort, insertion_sort, counting_sort, merge_sort])
 
 
     print("Tempo total de execução de cada algoritmo de ordenação para a mesma bateria de",
-        num_arrays, "arrays de", n, "elementos aleatórios, variando de 0 a", k, ":", "\n",
+        num_arrays, "arrays de", n, "elementos aleatórios, variando de 0 a", k, ":", "\n"+
         "As unidades de tempo são microsegundos (μs), sempre inteiros, com separação de milhares por vírgulas (,).")
     for sort_name in total_times:
         print(f"Tempo total {sort_name.replace('_', ' ').capitalize()}:",
-              nano_para_micro(total_times[sort_name]), "μs")
-
+              nano_para_micro(total_times[sort_name])+"μs")
+    
 
 if __name__ == "__main__":
     main()
