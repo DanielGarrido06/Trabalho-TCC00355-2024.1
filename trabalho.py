@@ -1,6 +1,6 @@
-import random
-import time
-import multiprocessing
+from random import randint
+from time import process_time_ns
+from multiprocessing import Process
 
 def bubble_sort(arr):
     n = len(arr)
@@ -82,13 +82,13 @@ def nano_para_mili(num):
     return(result)
 
 def gen_array(n, k):
-    arr = [random.randint(0, k) for _ in range(n)]
+    arr = [randint(0, k) for _ in range(n)]
     return arr
 
 def run_benchmark(arr, sort_func):
-    start = time.process_time_ns()
+    start = process_time_ns()
     sort_func(arr)
-    end = time.process_time_ns()
+    end = process_time_ns()
     total_time = (end - start)
     print(f"Tempo total {sort_func.__name__.replace('_', ' ').capitalize()}:", nano_para_mili(total_time)+"ms")
 
@@ -104,7 +104,7 @@ def main():
 
     processes = []
     for sort_func in [bubble_sort, selection_sort, insertion_sort, counting_sort, merge_sort]:
-        process = multiprocessing.Process(target=run_benchmark, args=(arr.copy(), sort_func))
+        process = Process(target=run_benchmark, args=(arr.copy(), sort_func))
         processes.append(process)
         process.start()
 
