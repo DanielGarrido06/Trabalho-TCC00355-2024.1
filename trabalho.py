@@ -70,10 +70,10 @@ def merge_sort(arr):
             k += 1
     return arr
 
-def nano_para_micro(num):
-    # Divide a entrada em nanosegundos (ns) por 1000, convertendo-a em microsegundos (μs).
+def nano_para_mili(num):
+    # Divide a entrada em nanosegundos (ns) por 1000000, convertendo-a em milisegundos (ms).
     # Também separa a saída em microsegundos em grupos de 3 dígitos, para facilitar a visualização dos resultados.
-    num_str = str(int(num/1000))
+    num_str = str(int(num/1000000))
     result = ""
     for i in range(len(num_str)):
         if i > 0 and (len(num_str) - i) % 3 == 0:
@@ -85,13 +85,12 @@ def gen_array(n, k):
     arr = [random.randint(0, k) for _ in range(n)]
     return arr
 
-def run_benchmark(arr, sort_func, sort_func_name):
+def run_benchmark(arr, sort_func):
     start = time.process_time_ns()
     sort_func(arr)
     end = time.process_time_ns()
     total_time = (end - start)
-    print(f"Tempo total {sort_func_name.replace('_', ' ').capitalize()}:",
-    nano_para_micro(total_time), "μs")
+    print(f"Tempo total {sort_func.__name__.replace('_', ' ').capitalize()}:", nano_para_mili(total_time)+"ms")
 
 def main():
     n = int(input("Insira o número de elementos dos arrays: "))
@@ -100,12 +99,12 @@ def main():
     arr = gen_array(n, k)
 
     print("Tempo total de execução de cada algoritmo de ordenação para o mesmo array de",
-        n, "elementos aleatórios, variando de 0 a", k, ":", "\n",
-        "As unidades de tempo são microsegundos (μs), sempre inteiros, com separação de milhares por vírgulas (,).")
+        n, "elementos aleatórios, variando de 0 a", k, ":", "\n"+
+        "As unidades de tempo são milisegundos (ms), sempre inteiros, com separação de milhares por vírgulas (,).")
 
     processes = []
     for sort_func in [bubble_sort, selection_sort, insertion_sort, counting_sort, merge_sort]:
-        process = multiprocessing.Process(target=run_benchmark, args=(arr.copy(), sort_func, sort_func.__name__))
+        process = multiprocessing.Process(target=run_benchmark, args=(arr.copy(), sort_func))
         processes.append(process)
         process.start()
 
