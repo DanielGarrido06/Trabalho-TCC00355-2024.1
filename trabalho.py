@@ -1,5 +1,5 @@
 import random
-import time
+import timeit
 
 def bubble_sort(arr):
     n = len(arr)
@@ -69,7 +69,7 @@ def merge_sort(arr):
             k += 1
     return arr
 
-def nano_para_micro(num):
+def segundo_para_ms(num):
     # Divide a entrada em nanosegundos (ns) por 1000, convertendo-a em microsegundos (μs).
     # Também separa a saída em microsegundos em grupos de 3 dígitos, para facilitar a visualização dos resultados.
     num_str = str(int(num/1000))
@@ -88,13 +88,11 @@ def gen_arrays(n, k, num_arrays):
     return array_geral
 
 def run_benchmark(array_geral, sort_func, total_times, sort_func_name):
-    start = time.process_time_ns()
     for arr in array_geral:
-        sort_func(arr.copy())
-    end = time.process_time_ns()
+        totaltime = timeit.timeit(sort_func(arr), number=1)
     if sort_func_name not in total_times:
         total_times[sort_func_name] = 0
-    total_times[sort_func_name] += (end - start)
+    total_times[sort_func_name] += (totaltime)
 
 def main():
     n = int(input("Insira o número de elementos dos arrays: "))
@@ -111,10 +109,10 @@ def main():
 
     print("Tempo total de execução de cada algoritmo de ordenação para a mesma bateria de",
         num_arrays, "arrays de", n, "elementos aleatórios, variando de 0 a", k, ":", "\n",
-        "As unidades de tempo são microsegundos (μs), sempre inteiros, com separação de milhares por vírgulas (,).")
+        "As unidades de tempo são milisegungos (ms), sempre inteiros, com separação de milhares por vírgulas (,).")
     for sort_name in total_times:
         print(f"Tempo total {sort_name.replace('_', ' ').capitalize()}:",
-              nano_para_micro(total_times[sort_name]), "μs")
+              segundo_para_ms(total_times[sort_name]), "ms")
 
 
 if __name__ == "__main__":
