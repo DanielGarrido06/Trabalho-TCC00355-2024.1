@@ -100,7 +100,7 @@ def main():
 
     arr = gen_array(n, k)
 
-    for sort_func in [counting_sort, merge_sort]:
+    for sort_func in [bubble_sort, selection_sort, insertion_sort, counting_sort, merge_sort]:
         run_benchmark(arr.copy(), sort_func, total_times, sort_func.__name__)
 
 
