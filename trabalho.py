@@ -38,7 +38,7 @@ def counting_sort(arr):
         count[arr[i]] += 1
     k = 0
     for i in range(max_value + 1):
-        for j in range(count[i]):
+        for _ in range(count[i]):
             arr[k] = i
             k += 1
     return arr
@@ -80,17 +80,13 @@ def nano_para_micro(num):
         result += num_str[i]
     return(result)
 
-def gen_arrays(n, k, num_arrays):
-    array_geral = []
-    for _ in range(num_arrays):
-        arr = [random.randint(0, k) for _ in range(n)]
-        array_geral.append(arr)
-    return array_geral
+def gen_array(n, k):
+    arr = [random.randint(0, k) for _ in range(n)]
+    return arr
 
-def run_benchmark(array_geral, sort_func, total_times, sort_func_name):
+def run_benchmark(arr, sort_func, total_times, sort_func_name):
     start = time.process_time_ns()
-    for arr in array_geral:
-        sort_func(arr.copy())
+    sort_func(arr)
     end = time.process_time_ns()
     if sort_func_name not in total_times:
         total_times[sort_func_name] = 0
@@ -99,18 +95,17 @@ def run_benchmark(array_geral, sort_func, total_times, sort_func_name):
 def main():
     n = int(input("Insira o número de elementos dos arrays: "))
     k = int(input("Insira o valor máximo dos elementos dos arrays: "))
-    num_arrays = int(input("Insira o número de arrays a serem gerados: "))
 
     total_times = {}
 
-    array_geral = gen_arrays(n, k, num_arrays)
+    arr = gen_array(n, k)
 
-    for sort_func in [bubble_sort, selection_sort, insertion_sort, counting_sort, merge_sort]:
-        run_benchmark(array_geral.copy(), sort_func, total_times, sort_func.__name__)
+    for sort_func in [counting_sort, merge_sort]:
+        run_benchmark(arr.copy(), sort_func, total_times, sort_func.__name__)
 
 
-    print("Tempo total de execução de cada algoritmo de ordenação para a mesma bateria de",
-        num_arrays, "arrays de", n, "elementos aleatórios, variando de 0 a", k, ":", "\n",
+    print("Tempo total de execução de cada algoritmo de ordenação para o mesmo array de",
+        n, "elementos aleatórios, variando de 0 a", k, ":", "\n",
         "As unidades de tempo são microsegundos (μs), sempre inteiros, com separação de milhares por vírgulas (,).")
     for sort_name in total_times:
         print(f"Tempo total {sort_name.replace('_', ' ').capitalize()}:",
