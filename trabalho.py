@@ -72,7 +72,7 @@ def merge_sort(arr):
 
 def nano_para_mili(num):
     # Divide a entrada em nanosegundos (ns) por 1000000, convertendo-a em milisegundos (ms).
-    # Também separa a saída em microsegundos em grupos de 3 dígitos, para facilitar a visualização dos resultados.
+    # Também separa a saída em milisegundos em grupos de 3 dígitos, para facilitar a visualização dos resultados.
     num_str = str(int(num/1000000))
     result = ""
     for i in range(len(num_str)):
@@ -93,8 +93,8 @@ def run_benchmark(arr, sort_func):
     print(f"Tempo total {sort_func.__name__.replace('_', ' ').capitalize()}:", nano_para_mili(total_time)+"ms")
 
 def main():
-    n = int(input("Insira o número de elementos dos arrays: "))
-    k = int(input("Insira o valor máximo dos elementos dos arrays: "))
+    n = int(input("Insira o número de elementos do array: "))
+    k = int(input("Insira o valor máximo dos elementos do array: "))
 
     arr = gen_array(n, k)
 
